@@ -10,17 +10,31 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $clients = DB::table('clients')
+        $clientsData = DB::table('clients')
             ->join('cars', 'clients.id', '=', 'cars.client_id')
-            ->select('clients.name', 'cars.brand', 'cars.license_plate')
+            ->select('clients.id', 'clients.name', 'cars.brand', 'cars.license_plate')
             ->get();
-        //dd($clients);
-        return view('clients.index', $clients);
+        return view('clients.index', compact('clientsData'));
     }
 
     public function create()
     {
         return view('clients.create');
+    }
+
+    public function edit($id)
+    {
+        $clientData = DB::table('clients')
+            ->select('id', 'name', 'gender', 'phone', 'address')
+            ->where('id', '=', $id)
+            ->first();
+
+        $clientCars = DB::table('cars')
+            ->select('id', 'brand', 'model', 'color', 'license_plate')
+            ->where('client_id', '=', $id)
+            ->get();
+
+        return view('clients.edit', compact('clientData', 'clientCars'));
     }
 
     public function store(Request $request)
@@ -61,7 +75,7 @@ class ClientController extends Controller
             ]
         );
 
-        DB::table('cars')->insertGetId(
+        DB::table('cars')->insert(
             [
                 'client_id' => $id,
                 'brand' => $data['brand'],
@@ -70,6 +84,40 @@ class ClientController extends Controller
                 'license_plate' => $data['license-plate']
             ]
         );
+
+        return redirect()->route('clients.index');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $this->validate(
+            $request,
+            [
+                'name' => 'required|between:3,100',
+                'gender' => 'required|in:male,female',
+                'phone' => 'required|phone:mobile',
+                'address' => 'required',
+
+                '*brand*' => 'required|max:50',
+                '*model*' => 'required|max:50',
+                '*color*' => 'required|max:50',
+                '*license-plate*' => 'required|unique:cars,license_plate|max:12'
+            ],
+            [
+                'name.required' => 'Поле Имя обязательно для заполнения',
+                'name.between:3,100' => 'Поле Имя должно включать от 3 до 100 символов',
+                'phone.required'  => 'Поле Телефон обязательно для заполнения',
+                'phone.phone:mobile'  => 'Неверный формат телефонного номера',
+                'address.required' => 'Поле Адрес обязательно для заполнения',
+
+                '*brand*.required' => 'Поле Марка обязательно для заполнения',
+                '*model*.required' => 'Поле Модель обязательно для заполнения',
+                '*license-plate*.required' => 'Поле Гос. номер обязательно для заполнения',
+                '*license-plate*.unique:cars,license_plate' => 'Данный Гос. номер уже существует в базе'
+            ]
+        );
+
+        dd($data);
 
         return redirect()->route('clients.index');
     }

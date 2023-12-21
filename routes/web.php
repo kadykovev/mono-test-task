@@ -15,10 +15,12 @@ use App\Http\Controllers\Сlients\ClientController;
 */
 
 Route::get('/', function () {
-    return view('home')->name('home');;
-});
+    return view('home');
+})->name('home');
 
 Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 Route::get('clients/create', [ClientController::class, 'create'])->name('clients.create');
+Route::get('clients/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
 
 Route::post('clients', [ClientController::class, 'store'])->name('clients.store');
+Route::patch('clients/{id}', [ClientController::class, 'update'])->name('clients.update');
