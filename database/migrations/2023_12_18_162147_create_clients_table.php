@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('gender', 6);
-            $table->string('phone', 18);
+            $table->string('phone', 18)->unique();
             $table->string('address');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();

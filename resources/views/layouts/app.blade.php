@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-param" content="_token" />
 
     <title>@yield('title')</title>
 
@@ -18,7 +19,7 @@
 </head>
 <body>
     <div id="app" class="container">
-        <nav>
+        <nav class="bg-secondary-subtle p-3 mt-3 mb-4">
             @include('shared.nav')
         </nav>
         <main class="py-4">

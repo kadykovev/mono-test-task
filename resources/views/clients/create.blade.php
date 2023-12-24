@@ -5,7 +5,7 @@
 @section('content')
 @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
+        <ul class="m-0">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -14,62 +14,62 @@
 @endif
 <form method="post" action="{{route('clients.store')}}">
     @csrf
-    <fieldset class="row mb-3">
-        <legend>Клиент</legend>
+    <h2>Клиент</h2>
+    <fieldset class="p-3 pb-0 mb-3 border">
         <div class="row mb-3">
-            <label for="name" class="col-sm-2 col-form-label">Ф.И.О.</label>
+            <label class="col-sm-2 col-form-label">Ф.И.О.</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" name="name" maxlength="100" value="{{ old('name') }}">
+                <input type="text" class="form-control  @error('client.name') is-invalid @enderror" name="client[name]" maxlength="100" value="{{ old('client.name') }}">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="gender" class="col-sm-2 col-form-label">Пол</label>
+            <label class="col-sm-2 col-form-label">Пол</label>
             <div class="col-sm-10">
-                <select class="form-select" id="gender" name="gender">
+                <select class="form-select   @error('client.gender') is-invalid @enderror" name="client[gender]">
                     <option></option>
-                    <option value="male" {{ old('gender') === 'male' ? 'selected' : Null }}>Мужской</option>
-                    <option value="female" {{ old('gender') === 'female' ? 'selected' : Null }}>Женский</option>
+                    <option value="male" {{ old('client.gender') === 'male' ? 'selected' : Null }}>Мужской</option>
+                    <option value="female" {{ old('client.gender') === 'female' ? 'selected' : Null }}>Женский</option>
                 </select>
             </div>
         </div>
         <div class="row mb-3">
-            <label for="phone" class="col-sm-2 col-form-label">Номер телефона</label>
+            <label class="col-sm-2 col-form-label">Номер телефона</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="phone"  name="phone" maxlength="18" value="{{ old('phone') }}">
+                <input type="text" class="form-control @error('client.phone') is-invalid @enderror" name="client[phone]" maxlength="18" value="{{ old('client.phone') }}">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="address" class="col-sm-2 col-form-label">Адрес</label>
+            <label class="col-sm-2 col-form-label">Адрес</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="address" name="address"  value="{{ old('address') }}">
+                <input type="text" class="form-control @error('client.address') is-invalid @enderror" name="client[address]"  value="{{ old('client.address') }}">
             </div>
         </div>
   </fieldset>
 
-  <fieldset class="row mb-3">
-    <legend>Автомобиль</legend>
+  <h2>Автомобиль</h2>
+  <fieldset class="p-3 pb-0 mb-3 border w-50">
         <div class="row mb-3">
-            <label for="brand" class="col-sm-2 col-form-label">Марка</label>
+            <label class="col-sm-2 col-form-label">Марка</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="brand" name="brand" maxlength="50" value="{{ old('brand') }}">
+                <input type="text" class="form-control @error('car.brand') is-invalid @enderror" name="car[brand]" maxlength="50" value="{{ old('car.brand') }}">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="model" class="col-sm-2 col-form-label">Модель</label>
+            <label class="col-sm-2 col-form-label">Модель</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="model" name="model" maxlength="50" value="{{ old('model') }}">
+                <input type="text" class="form-control @error('car.model') is-invalid @enderror" name="car[model]" maxlength="50" value="{{ old('car.model') }}">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="color" class="col-sm-2 col-form-label">Цвет</label>
+            <label class="col-sm-2 col-form-label">Цвет</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="color" name="color" maxlength="50" value="{{ old('color') }}">
+                <input type="text" class="form-control @error('car.color') is-invalid @enderror" name="car[color]" maxlength="50" value="{{ old('car.color') }}">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="license-plate" class="col-sm-2 col-form-label">Гос. номер</label>
+            <label class="col-sm-2 col-form-label">Гос. номер</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="license-plate" name="license-plate" maxlength="12"  value="{{ old('license-plate') }}">
+                <input type="text" class="form-control @error('car.licensePlate') is-invalid @enderror" name="car[licensePlate]" maxlength="12"  value="{{ old('car.licensePlate') }}">
             </div>
         </div>
   </fieldset>
