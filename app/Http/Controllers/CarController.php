@@ -13,7 +13,7 @@ class CarController extends Controller
             ->join('clients', 'cars.client_id', '=', 'clients.id')
             ->select('cars.id', 'cars.brand', 'cars.model', 'cars.color', 'cars.license_plate', 'clients.name')
             ->where('cars.is_parked', '=', true)->paginate(5);
-//dd($parkedCars);
+
         $parkedCarsNum = DB::table('cars')
             ->select('id', 'brand', 'model', 'color', 'license_plate')
             ->where('is_parked', '=', true)
@@ -24,30 +24,36 @@ class CarController extends Controller
             ->select('id', 'name')
             ->get();
 
-        $firstClientId = $clients->first()->id;
-        $clientId = $request->query()['client_id'] ?? $firstClientId;
-        $clientIdExists = DB::table('clients')->where('id', '=', $clientId)->exists();
+        $clientsNum = $clients->count();
 
-        $selectedClientId = $clientIdExists ? $clientId : $firstClientId;
+        if ($clientsNum > 0) {
+            $firstClientId = $clients->first()->id;
+            $clientId = $request->query()['client_id'] ?? $firstClientId;
+            $clientIdExists = DB::table('clients')->where('id', '=', $clientId)->exists();
 
-        $clientCars = DB::table('cars')
-            ->select('id', 'brand', 'model', 'license_plate')
-            ->where('client_id', '=', $selectedClientId)
-            ->get();
+            $selectedClientId = $clientIdExists ? $clientId : $firstClientId;
 
-        $carId = $request->query()['car_id'] ?? false;
-        $isSubmited = $request->query()['add'] ?? false;
+            $clientCars = DB::table('cars')
+                ->select('id', 'brand', 'model', 'license_plate')
+                ->where('client_id', '=', $selectedClientId)
+                ->get();
 
-        if ($isSubmited && $carId) {
-            $carIdExists = DB::table('cars')->where('id', '=', $carId)->exists();
+            $carId = $request->query()['car_id'] ?? false;
+            $isSubmited = $request->query()['add'] ?? false;
 
-            if ($carIdExists) {
-                DB::table('cars')->where('id', '=', $carId)->update(['is_parked' => true]);
+            if ($isSubmited && $carId) {
+                $carIdExists = DB::table('cars')->where('id', '=', $carId)->exists();
 
-                return redirect()->route('cars.index');
+                if ($carIdExists) {
+                    DB::table('cars')->where('id', '=', $carId)->update(['is_parked' => true]);
+
+                    return redirect()->route('cars.index');
+                }
             }
+            return view('cars.index', compact('parkedCars', 'clients', 'clientCars', 'selectedClientId', 'parkedCarsNum', 'clientsNum'));
+        } else {
+            return view('cars.index', compact('parkedCarsNum', 'clientsNum'));
         }
-        return view('cars.index', compact('parkedCars', 'clients', 'clientCars', 'selectedClientId', 'parkedCarsNum'));
     }
 
     public function update($id)
