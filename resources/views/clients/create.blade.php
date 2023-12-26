@@ -44,10 +44,10 @@
                 <input type="text" class="form-control @error('client.address') is-invalid @enderror" name="client[address]"  value="{{ old('client.address') }}">
             </div>
         </div>
-  </fieldset>
+    </fieldset>
 
-  <h2>Автомобиль</h2>
-  <fieldset class="p-3 pb-0 mb-3 border w-50">
+    <h2>Автомобиль</h2>
+    <fieldset class="p-3 pb-0 mb-3 border w-50">
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Марка</label>
             <div class="col-sm-10">
@@ -72,8 +72,8 @@
                 <input type="text" class="form-control @error('car.licensePlate') is-invalid @enderror" name="car[licensePlate]" maxlength="12"  value="{{ old('car.licensePlate') }}">
             </div>
         </div>
-  </fieldset>
+    </fieldset>
 
-  <button type="submit" class="btn btn-primary">Создать</button>
+    <button type="submit" class="btn btn-primary">Создать</button>
 </form>
 @endsection

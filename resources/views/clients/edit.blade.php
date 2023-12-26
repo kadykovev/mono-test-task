@@ -58,8 +58,8 @@
                 <input type="text" class="form-control @error('client.address') is-invalid @enderror" name="client[address]"  value="{{ old('client.address') ?? $clientData->address }}">
             </div>
         </div>
-  </fieldset>
-  <h2>Автомобили клиента</h2>
+    </fieldset>
+    <h2>Автомобили клиента</h2>
 
     @foreach ($cars = $clientCars->all() as $clientCar)
         @php
@@ -126,8 +126,8 @@
                 <input type="text" class="form-control @error('newCar.licensePlate') is-invalid @enderror" name="newCar[licensePlate]" maxlength="12"  value="{{ old('newCar.licensePlate') }}">
             </div>
         </div>
-  </fieldset>
+    </fieldset>
 
-  <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
 @endsection

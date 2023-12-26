@@ -36,5 +36,3 @@
     @endif
     {{ $clientsData->links() }}
 @endsection
-
-
