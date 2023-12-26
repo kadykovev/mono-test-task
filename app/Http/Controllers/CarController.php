@@ -9,6 +9,12 @@ class CarController extends Controller
 {
     public function index(Request $request)
     {
+        $clients = DB::table('clients')
+            ->select('id', 'name')
+            ->get();
+
+        $clientsNum = $clients->count();
+
         $parkedCars = DB::table('cars')
             ->join('clients', 'cars.client_id', '=', 'clients.id')
             ->select('cars.id', 'cars.brand', 'cars.model', 'cars.color', 'cars.license_plate', 'clients.name')
@@ -20,16 +26,13 @@ class CarController extends Controller
             ->get()
             ->count();
 
-        $clients = DB::table('clients')
-            ->select('id', 'name')
-            ->get();
-
-        $clientsNum = $clients->count();
-
         if ($clientsNum > 0) {
             $firstClientId = $clients->first()->id;
             $clientId = $request->query()['client_id'] ?? $firstClientId;
-            $clientIdExists = DB::table('clients')->where('id', '=', $clientId)->exists();
+
+            $clientIdExists = DB::table('clients')
+                ->where('id', '=', $clientId)
+                ->exists();
 
             $selectedClientId = $clientIdExists ? $clientId : $firstClientId;
 

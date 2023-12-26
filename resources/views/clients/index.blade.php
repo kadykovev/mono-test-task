@@ -11,8 +11,8 @@
                 <th scope="col">Ф.И.О.</th>
                 <th scope="col">Автомобиль</th>
                 <th scope="col">Модель</th>
-                <th scope="col">Модель</th>
-                <th scope="col">Цвет</th>
+                <th scope="col">цвет</th>
+                <th scope="col">Гос. номер</th>
                 <th scope="col" colspan="3"></th>
                 </tr>
             </thead>

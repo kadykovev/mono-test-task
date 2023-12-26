@@ -11,7 +11,6 @@
 
 @if ($hasErrors)
     @php
-    //dd($errors);
         $clientData->name = '';
         $clientData->gender = '';
         $clientData->phone = '';
