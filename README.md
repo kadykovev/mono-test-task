@@ -1,3 +1,21 @@
+## Requirements
+Composer </br>
+PHP >= 8 </br>
+node js > 14
+
+## Installation
+Clone the project: </br>
+`git clone git@github.com:kadykovev/mono-test-task.git`</br>
+Go to the project directory: </br>
+`cd mono-test-task`</br>
+Run the installation: </br>
+`composer install` </br>
+`npm install`</br>
+`php artisan migrate`</br>
+Run servers: </br>
+`php artisan serve` </br>
+`npm run dev` </br>
+
 <h1>Тестовое задание для стажера</h1>
 <h3>Задание</h3>
 <p>Реализовать систему учёта клиентов автостоянки на фреймворке Laravel. Система должна иметь функции создания, редактирования, удаления данных о клиентах и их автомобилях, (*)а также должна быть возможность ведения учёта того, сколько и какие автомобили находится на стоянке. При написании проекта следует обратить внимание на защиту от XSS атак и SQL–инъекций.</p>
