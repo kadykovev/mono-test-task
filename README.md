@@ -1,8 +1,8 @@
 ## Requirements
 Composer </br>
 PHP >= 8 </br>
-node js >= 15
-MySQL >= 5.6
+node js >= 15 </br>
+MySQL >= 5.6 </br>
 
 ## Installation
 Clone the project: </br>
